@@ -17,5 +17,11 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    rollupOptions: {
+      // Prevent any Node.js built-in modules from being bundled into the
+      // client. This avoids "crypto is not defined" errors when server-side
+      // code is transitively imported via `import type` from tRPC routers.
+      external: (id) => id.startsWith("node:"),
+    },
   },
 });

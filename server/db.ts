@@ -2,7 +2,7 @@ import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser, User, users, InsertIpAccess, IpAccess, ipAccesses } from "../drizzle/schema";
 import { ENV } from './_core/env';
-import { createHash } from "crypto";
+import { createHash } from "node:crypto";
 
 export function hashPassword(password: string): string {
   return createHash("sha256").update(password + (ENV.cookieSecret || "salt")).digest("hex");
